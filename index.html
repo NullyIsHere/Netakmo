@@ -1,0 +1,101 @@
+<style>
+  .form__group {
+	 position: relative;
+	 padding: 15px 0 0;
+	 margin-top: 10px;
+	 width: 50%;
+}
+ .form__field {
+	 font-family: inherit;
+	 width: 100%;
+	 border: 0;
+	 border-bottom: 2px solid #9b9b9b;
+	 outline: 0;
+	 font-size: 1.3rem;
+	 color: #fff;
+	 padding: 7px 0;
+	 background: transparent;
+	 transition: border-color 0.2s;
+}
+ .form__field::placeholder {
+	 color: transparent;
+}
+ .form__field:placeholder-shown ~ .form__label {
+	 font-size: 1.3rem;
+	 cursor: text;
+	 top: 20px;
+}
+ .form__label {
+	 position: absolute;
+	 top: 0;
+	 display: block;
+	 transition: 0.2s;
+	 font-size: 1rem;
+	 color: #9b9b9b;
+}
+ .form__field:focus {
+	 padding-bottom: 6px;
+	 font-weight: 700;
+	 border-width: 3px;
+	 border-image: linear-gradient(to right, #11998e, #057d33);
+	 border-image-slice: 1;
+}
+ .form__field:focus ~ .form__label {
+	 position: absolute;
+	 top: 0;
+	 display: block;
+	 transition: 0.2s;
+	 font-size: 1rem;
+	 color: #11998e;
+	 font-weight: 700;
+}
+/* reset input */
+ .form__field:required, .form__field:invalid {
+	 box-shadow: none;
+}
+/* demo */
+ body {
+	 font-family: 'Poppins', sans-serif;
+	 display: flex;
+	 flex-direction: column;
+	 justify-content: center;
+	 align-items: center;
+	 min-height: 100vh;
+	 font-size: 1.5rem;
+	 background-color: #222;
+}
+ 
+</style>
+<div class="form__group field">
+  <input type="input" class="form__field" placeholder="Name" name="name" id='name' required autocomplete="off"/>
+  <label for="name" class="form__label">Netakmo: Busca algo</label>
+</div><script>
+  // Select the input field by its ID
+  const inputField = document.getElementById('name');
+
+  // Function to perform search based on entered text
+  function performSearch(searchTerm) {
+    if (searchTerm !== '') {
+      window.location.href = "https://google.com/search?q=" + encodeURIComponent(searchTerm);
+    }
+  }
+
+  // Add keydown event listener for Enter key
+  inputField.addEventListener('keydown', function(event) {
+    if (event.key === 'Enter') {
+      event.preventDefault(); // Prevent default form submission
+      performSearch(inputField.value);
+    }
+  });
+
+  // Get the URL parameters
+  const urlParams = new URLSearchParams(window.location.search);
+
+  // Check if the 's' parameter exists
+  if (urlParams.has('s')) {
+    // Get the value of the 's' parameter
+    const searchTerm = urlParams.get('s');
+    performSearch(searchTerm);
+    // Your additional logic here...
+  }
+</script>
